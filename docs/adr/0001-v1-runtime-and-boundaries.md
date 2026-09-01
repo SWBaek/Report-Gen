@@ -1,6 +1,6 @@
 # ADR-0001: v1 Runtime and Architecture Boundaries
 
-- 상태: Accepted
+- 상태: Superseded by [ADR-0002](0002-desktop-report-application-and-provider-runtimes.md)
 - 날짜: 2026-09-01
 
 ## Context

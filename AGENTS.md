@@ -18,6 +18,8 @@ Use it to preserve the product contract while the implementation and workspace s
 
 Before editing, classify the change:
 
+Follow `docs/ARCHITECTURE.md` for the accepted v1 runtime, dependency direction, Provider boundary, output artifacts, and validation strategy. Record a new ADR before changing an accepted architecture decision.
+
 1. **Provider execution** — preserve both authenticated CLI providers and keep provider-specific behavior from changing the report contract.
 2. **Structured report contract** — preserve one provider-neutral representation that the static renderer can consume. Treat field names, required sections, ordering rules, and validation behavior as a public contract once implemented.
 3. **HTML rendering** — change the deterministic renderer or its inputs instead of asking the LLM to generate or repair presentation markup.

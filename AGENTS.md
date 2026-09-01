@@ -3,12 +3,19 @@
 This is the repository-wide working guide for contributors and coding agents in Report-Gen.
 Use it to preserve the product contract while the implementation and workspace structure evolve.
 
+## Start Here
+
+- The repository currently contains architecture, design, and governance documents only. The implementation layout in `docs/ARCHITECTURE.md` is planned, not an existing workspace; do not invent source paths or validation commands.
+- Start with `docs/ARCHITECTURE.md` for accepted v1 boundaries and ADR requirements.
+- Use `DESIGN.md` as the visual source of truth for generated reports, not as a complete desktop-application UI specification.
+- Follow `.github/ISSUE_MANAGEMENT.md` before starting implementation work.
+
 ## Product Contract
 
 - Report-Gen is a local desktop report generator for people who should not need to understand a general-purpose AI chat product or a terminal workflow.
 - The primary product surface is a report-focused, chat-shaped UI. The application owns report sessions, workflow state, validation, artifacts, and rendering; a Provider does not own the product experience.
 - Report-Gen accepts data expressed in natural language, evaluates and refines the request, delegates analysis to an LLM, optionally gathers evidence, and produces a consistent report from the result.
-- Version 1 supports exactly two local Provider runtimes: Codex CLI and GitHub Copilot CLI. Their CLIs are internal integration and authentication boundaries, not user-facing product interfaces.
+- Version 1 supports exactly two local Provider integrations: Codex App Server launched with `codex app-server`, and GitHub Copilot CLI in programmatic mode. These are internal integration and authentication boundaries, not user-facing product interfaces.
 - Reuse the Provider's existing authenticated account or launch its official interactive sign-in flow. Do not accept, store, proxy, or document an API-key/BYOK flow, and never read Provider credential files directly.
 - Provider-specific conversation, streaming, Skill, agent, and Hook capabilities may differ. Normalize only the product behavior that Report-Gen needs; do not pretend unsupported capabilities are equivalent.
 - Version 1 emits a borderless HTML report. A4 and slide output are possible future formats, not current supported outputs.
@@ -35,14 +42,15 @@ Follow `docs/ARCHITECTURE.md` for the accepted v1 desktop runtime, dependency di
 
 ## Synchronization Rules
 
+These rules apply only to implementation surfaces that exist in the repository. Do not create a missing surface solely to satisfy a synchronization list.
+
 - When the structured report contract changes, update every existing provider prompt or adapter, validator, representative structured sample, renderer expectation, and contract-focused test in the same change.
-- When provider invocation or output normalization changes, verify the shared structured contract against both Codex CLI and GitHub Copilot CLI.
+- When provider invocation or output normalization changes, verify the shared structured contract against both Codex App Server and GitHub Copilot CLI.
 - When an application workflow stage changes, update its Schema, Provider-specific projection, fixtures, persistence representation, progress events, and stage-focused tests together.
 - When authentication changes, verify existing-session reuse, signed-out behavior, official interactive sign-in, cancellation, expiry, and redaction. Do not add API-key fallback behavior.
 - When bundled Skills, agents, or Hooks change, keep their Provider-specific forms semantically aligned and verify that application validation still rejects invalid output independently of them.
 - When layout or styling changes, update `DESIGN.md` if the design contract changed and review generated HTML with both typical and stress-case content.
 - Treat rendered reports as generator output. Change the structured input, renderer, template, or design contract rather than hand-fixing a generated report.
-- When the first implementation establishes source paths, schemas, fixtures, tests, and runnable commands, update this guide with only the real entry points and validated commands.
 
 ## Validation Expectations
 
@@ -64,4 +72,5 @@ Follow `docs/ARCHITECTURE.md` for the accepted v1 desktop runtime, dependency di
 
 - Keep this root guide repository-wide and concise. Add nested `AGENTS.md` files only after a real subtree needs different ownership, generation, or validation instructions.
 - Do not add tools, dependencies, frameworks, package managers, or commands to this guide until the repository or an explicit project decision establishes them.
+- When the first implementation establishes source paths, schemas, fixtures, tests, and runnable commands, update this guide with only the real entry points and validated commands.
 - Update this guide when the supported providers, output formats, structured contract, rendering boundary, or design source of truth changes.

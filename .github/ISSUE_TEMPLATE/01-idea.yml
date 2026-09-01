@@ -1,0 +1,62 @@
+name: 아이디어
+description: 새로운 기능, 개선 방향 또는 제품 아이디어를 제안합니다.
+title: "[Idea] "
+labels:
+  - idea
+  - needs-triage
+projects:
+  - SWBaek/4
+body:
+  - type: markdown
+    attributes:
+      value: |
+        구현 방법이 확정되지 않은 제안도 괜찮습니다. 해결하려는 문제와 기대 효과를 중심으로 적어 주세요.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      description: 아이디어가 주로 영향을 주는 영역을 선택해 주세요.
+      options:
+        - Provider
+        - Schema
+        - Renderer
+        - Design
+        - Tooling
+        - Docs
+        - 여러 영역
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 배경과 문제
+      description: 어떤 불편이나 기회 때문에 이 아이디어가 필요한가요?
+      placeholder: 현재 상황과 해결하려는 문제를 설명해 주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안
+      description: 원하는 동작이나 해결 방향을 설명해 주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: 기대 효과
+      description: 이 아이디어가 실현되면 무엇이 좋아지나요?
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 대안과 참고 자료
+      description: 검토한 대안, 관련 Issue, 문서 또는 예제가 있다면 적어 주세요.
+    validations:
+      required: false
